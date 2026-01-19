@@ -1,0 +1,10 @@
+flutter pub run flutter_launcher_icons
+
+flutter build apk --release 2>&1 | Select-String -Pattern "namespace|Namespace|BUILD|FAILURE" -Context 1,1
+
+DB_CONNECTION=pgsql
+DB_HOST=127.0.0.1
+DB_PORT=5432
+DB_DATABASE=dhamma_center
+DB_USERNAME=dhamma_user
+DB_PASSWORD=dhammacenterdbpwd

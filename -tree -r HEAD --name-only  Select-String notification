@@ -1,0 +1,10 @@
+[33mcommit 26f15494ffc8e9e8e2ccb7b3b75ab81296dbfb1d[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m
+Author: AMK1215 <aungmyokhaing1215@gmail.com>
+Date:   Mon Dec 22 15:11:54 2025 +0630
+
+    change commit
+
+.gitignore
+GIT_SECURITY_FIX.md
+REMOVE_SECRET_FROM_GIT.md
+dhamma_apk/.gitignore

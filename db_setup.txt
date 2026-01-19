@@ -1,0 +1,26 @@
+sudo apt install postgresql postgresql-contrib -y
+sudo systemctl status postgresql
+CREATE DATABASE dhamma_center;
+CREATE USER dhamma_user WITH PASSWORD 'dhammacenterdbpwd';
+GRANT ALL PRIVILEGES ON DATABASE dhamma_center TO dhamma_user;
+ALTER USER dhamma_user WITH PASSWORD 'dhammacenterdbpwd';
+
+sudo -i -u postgres
+psql -d dhamma_center
+
+psql -h 127.0.0.1 -U dhamma_user -d dhamma_center
+
+GRANT ALL ON SCHEMA public TO dhamma_user;
+ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON TABLES TO dhamma_user;
+ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON SEQUENCES TO dhamma_user;
+
+sudo -i -u postgres
+psql -d ponewine_db
+
+php -r "file_put_contents('/var/www/html/parayana_dhamma_center/storage/logs/laravel.log', '');" 
+composer require elephantio/elephant.io
+
+pm2 start server.js --name noti
+pm2 save
+pm2 startup systemd
+pm2 save

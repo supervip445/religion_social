@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Profit Calculation</title>
+</head>
+<body>
+
+  <h1>Profit Calculation Program</h1>
+
+  <!-- Input Form -->
+  <h2>Input</h2>
+  <form onsubmit="calculateProfit(); return false;">
+    <label>
+      Wholesale Price :
+      <input type="number" id="wholesalePrice" required>
+    </label>
+    <br><br>
+
+    <label>
+      Retail Price :
+      <input type="number" id="retailPrice" required>
+    </label>
+    <br><br>
+
+    <button type="submit">Calculate Profit</button>
+  </form>
+
+  <hr>
+
+  <!-- Output -->
+  <h2>Result</h2>
+  <p id="result"></p>
+  <p id="thanks"></p>
+
+  <hr>
+
+  <!-- Flowchart Explanation -->
+  <h2>Flowchart Explanation (ရှင်းလင်းချက်)</h2>
+
+  <p><strong>Start</strong><br>
+  ➤ Program စတင်ပါသည်။</p>
+
+  <p><strong>Declaration</strong><br>
+  ➤ Variable သုံးခုကို ကြေညာပါသည်။<br>
+  wholesalePrice – ဝယ်ဈေး<br>
+  retailPrice – ရောင်းဈေး<br>
+  profit – အမြတ်</p>
+
+  <p><strong>Housekeeping (Input)</strong><br>
+  ➤ HTML form မှတဆင့် user ထံမှ data များကို ရယူပါသည်။<br>
+  Wholesale price ကို input box ထဲတွင် ထည့်ပါသည်။<br>
+  Retail price ကို input box ထဲတွင် ထည့်ပါသည်။</p>
+
+  <p><strong>Processing</strong><br>
+  ➤ အမြတ်ကို တွက်ချက်ပါသည်။<br>
+  <code>profit = retailPrice - wholesalePrice</code>
+  </p>
+
+  <p><strong>Output</strong><br>
+  ➤ တွက်ပြီးသော profit ကို web page ပေါ်တွင် ပြသပါသည်။</p>
+
+  <p><strong>End of Job</strong><br>
+  ➤ “ဒီ program ကို အသုံးပြုတဲ့အတွက် ကျေးဇူးတင်ပါတယ်” ဟု ပြသပါသည်။</p>
+
+  <p><strong>Stop</strong><br>
+  ➤ Program ကို အဆုံးသတ်ပါသည်။</p>
+
+  <script>
+    // Declarations
+    let wholesalePrice;
+    let retailPrice;
+    let profit;
+
+    // Processing + Output
+    function calculateProfit() {
+      // Housekeeping (Input)
+      wholesalePrice = Number(
+        document.getElementById("wholesalePrice").value
+      );
+      retailPrice = Number(
+        document.getElementById("retailPrice").value
+      );
+
+      // Processing
+      profit = retailPrice - wholesalePrice;
+
+      // Output
+      document.getElementById("result").innerText =
+        "Profit is : " + profit;
+
+      document.getElementById("thanks").innerText =
+        "ဒီ program ကို အသုံးပြုတဲ့အတွက် ကျေးဇူးတင်ပါတယ်";
+    }
+  </script>
+
+</body>
+</html>

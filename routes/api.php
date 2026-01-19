@@ -90,7 +90,6 @@ Route::prefix('public')->group(function () {
     Route::get('/lessons/{id}', [PublicLessonController::class, 'show']);
     
     // Public User Authentication
-    Route::post('/register', [PublicAuthController::class, 'register']);
     Route::post('/login', [PublicAuthController::class, 'login']);
     
     // Protected public user routes
@@ -162,7 +161,7 @@ Route::prefix('admin')->group(function () {
         Route::apiResource('lessons', LessonController::class);
         
         // Users (for teachers dropdown)
-        Route::get('/users', [UserController::class, 'index']);
+        Route::apiResource('users', UserController::class);
         
         // Views
         Route::get('/views', [ViewController::class, 'getViews']);

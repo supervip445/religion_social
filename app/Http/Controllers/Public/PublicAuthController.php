@@ -16,6 +16,10 @@ class PublicAuthController extends Controller
      */
     public function register(Request $request)
     {
+        return response()->json([
+            'message' => 'Registration is disabled. Please contact the administrator.',
+        ], 403);
+
         $request->validate([
             'name' => 'required|string|max:255',
             'age' => 'required|integer|min:1|max:150',

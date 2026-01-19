@@ -45,6 +45,9 @@ class PostController extends Controller
         if ($post->image) {
             $post->image = asset('storage/' . $post->image);
         }
+        if ($post->video) {
+            $post->video = asset('storage/' . $post->video);
+        }
 
         return $post;
     });
@@ -76,6 +79,7 @@ class PostController extends Controller
             'image' => 'nullable|image|max:2048',
             'images' => 'nullable|array',
             'images.*' => 'image|max:2048',
+            'video' => 'nullable|file|mimes:mp4,mov,webm,avi|max:51200',
             'status' => 'required|in:draft,published',
         ]);
 
@@ -95,6 +99,10 @@ class PostController extends Controller
             // You can extend this to store multiple images in a JSON field or separate table
         }
 
+        if ($request->hasFile('video')) {
+            $validated['video'] = $request->file('video')->store('posts/videos', 'public');
+        }
+
         $validated['slug'] = Str::slug($validated['title']);
 
         $post = Post::create($validated);
@@ -102,6 +110,9 @@ class PostController extends Controller
         
         if ($post->image) {
             $post->image = url('storage/' . $post->image);
+        }
+        if ($post->video) {
+            $post->video = url('storage/' . $post->video);
         }
 
         // Send notification to public users if post is published
@@ -129,6 +140,9 @@ class PostController extends Controller
         $post = Post::with('category')->findOrFail($id);
         if ($post->image) {
             $post->image = asset('storage/' . $post->image);
+        }
+        if ($post->video) {
+            $post->video = asset('storage/' . $post->video);
         }
         // Add view count
         try {
@@ -158,6 +172,7 @@ class PostController extends Controller
             'image' => 'nullable|image|max:2048',
             'images' => 'nullable|array',
             'images.*' => 'image|max:2048',
+            'video' => 'nullable|file|mimes:mp4,mov,webm,avi|max:51200',
             'status' => 'required|in:draft,published',
         ]);
 
@@ -179,6 +194,13 @@ class PostController extends Controller
             $validated['image'] = $firstImage->store('posts', 'public');
         }
 
+        if ($request->hasFile('video')) {
+            if ($post->video) {
+                Storage::disk('public')->delete($post->video);
+            }
+            $validated['video'] = $request->file('video')->store('posts/videos', 'public');
+        }
+
         $validated['slug'] = Str::slug($validated['title']);
 
         // Store old status to check if we need to send notification
@@ -190,6 +212,9 @@ class PostController extends Controller
         
         if ($post->image) {
             $post->image = asset('storage/' . $post->image);
+        }
+        if ($post->video) {
+            $post->video = asset('storage/' . $post->video);
         }
 
         // Send notification if post is being published (changed from draft to published)
@@ -219,6 +244,9 @@ class PostController extends Controller
         
         if ($post->image) {
             Storage::disk('public')->delete($post->image);
+        }
+        if ($post->video) {
+            Storage::disk('public')->delete($post->video);
         }
 
         $post->delete();

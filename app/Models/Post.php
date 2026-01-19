@@ -16,6 +16,7 @@ class Post extends Model
         'content',
         'slug',
         'image',
+        'video',
         'status',
         'category_id',
     ];

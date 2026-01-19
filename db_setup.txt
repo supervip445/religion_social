@@ -1,18 +1,18 @@
 sudo apt install postgresql postgresql-contrib -y
 sudo systemctl status postgresql
-CREATE DATABASE dhamma_center;
-CREATE USER dhamma_user WITH PASSWORD 'dhammacenterdbpwd';
-GRANT ALL PRIVILEGES ON DATABASE dhamma_center TO dhamma_user;
-ALTER USER dhamma_user WITH PASSWORD 'dhammacenterdbpwd';
+CREATE DATABASE social_db;
+CREATE USER social_user WITH PASSWORD 'dhammacenterdbpwd';
+GRANT ALL PRIVILEGES ON DATABASE social_db TO social_user;
+ALTER USER social_user WITH PASSWORD 'dhammacenterdbpwd';
 
 sudo -i -u postgres
-psql -d dhamma_center
+psql -d social_db
 
-psql -h 127.0.0.1 -U dhamma_user -d dhamma_center
+psql -h 127.0.0.1 -U social_user -d social_db
 
-GRANT ALL ON SCHEMA public TO dhamma_user;
-ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON TABLES TO dhamma_user;
-ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON SEQUENCES TO dhamma_user;
+GRANT ALL ON SCHEMA public TO social_user;
+ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON TABLES TO social_user;
+ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON SEQUENCES TO social_user;
 
 sudo -i -u postgres
 psql -d ponewine_db

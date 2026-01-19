@@ -114,16 +114,28 @@ class AdminToUserChatController extends Controller
     }
 
     $validated = $request->validate([
-        'message' => ['required', 'string', 'max:2000'],
+        'message' => ['nullable', 'string', 'max:2000'],
+        'media' => ['nullable', 'file', 'mimes:jpg,jpeg,png,mp4,mov,webm,avi', 'max:51200'],
     ]);
 
-    $text = trim($validated['message']);
+    $text = trim((string) ($validated['message'] ?? ''));
+    $hasMedia = $request->hasFile('media');
 
-    if ($text === '') {
+    if ($text === '' && ! $hasMedia) {
         return response()->json([
             'status' => 'error',
             'message' => 'Message cannot be empty',
         ], 422);
+    }
+
+    $mediaPath = null;
+    $mediaMime = null;
+    $mediaType = null;
+    if ($hasMedia) {
+        $file = $request->file('media');
+        $mediaMime = $file->getMimeType();
+        $mediaType = str_starts_with($mediaMime, 'video/') ? 'video' : 'image';
+        $mediaPath = $file->store('chat/media', 'public');
     }
 
     $message = ChatMessage::create([
@@ -133,6 +145,9 @@ class AdminToUserChatController extends Controller
         'receiver_id' => $player->agent_id,
         'sender_type' => ChatMessage::SENDER_PLAYER,
         'message' => $text,
+        'media_path' => $mediaPath,
+        'media_type' => $mediaType,
+        'media_mime' => $mediaMime,
     ]);
 
     $message->load('sender');

@@ -50,6 +50,9 @@ class ChatSocketNotifier
 
         $title = $message->sender?->user_name ?? 'New Message';
         $body  = $message->message;
+        if (! $body && $message->media_type) {
+            $body = $message->media_type === 'video' ? 'Sent a video' : 'Sent an image';
+        }
 
         $payload = [
             'to_user_id' => $message->receiver_id,

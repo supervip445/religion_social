@@ -86,6 +86,11 @@ class AdminChatController extends Controller
             ->latest('id')
             ->first();
 
+        $lastMessageText = $lastMessage?->message;
+        if ($lastMessage && (! $lastMessageText || trim($lastMessageText) === '') && $lastMessage->media_type) {
+            $lastMessageText = $lastMessage->media_type === 'video' ? 'Sent a video' : 'Sent an image';
+        }
+
         return [
             'id' => $user->id,
             'name' => $user->name,
@@ -95,7 +100,7 @@ class AdminChatController extends Controller
             'profile' => $user->profile,
             'unread_count' => $unreadCount,
             'last_message' => $lastMessage ? [
-                'message' => $lastMessage->message,
+                'message' => $lastMessageText,
                 'created_at' => $lastMessage->created_at->toIso8601String(),
                 'sender_type' => $lastMessage->sender_type,
             ] : null,
@@ -202,16 +207,28 @@ class AdminChatController extends Controller
         }
 
         $validated = $request->validate([
-            'message' => ['required', 'string', 'max:2000'],
+            'message' => ['nullable', 'string', 'max:2000'],
+            'media' => ['nullable', 'file', 'mimes:jpg,jpeg,png,mp4,mov,webm,avi', 'max:51200'],
         ]);
 
-        $messageBody = trim($validated['message']);
+        $messageBody = trim((string) ($validated['message'] ?? ''));
+        $hasMedia = $request->hasFile('media');
 
-        if ($messageBody === '') {
+        if ($messageBody === '' && ! $hasMedia) {
             return response()->json([
                 'status' => 'error',
                 'message' => 'Message cannot be empty.',
             ], 422);
+        }
+
+        $mediaPath = null;
+        $mediaMime = null;
+        $mediaType = null;
+        if ($hasMedia) {
+            $file = $request->file('media');
+            $mediaMime = $file->getMimeType();
+            $mediaType = str_starts_with($mediaMime, 'video/') ? 'video' : 'image';
+            $mediaPath = $file->store('chat/media', 'public');
         }
 
         $message = ChatMessage::create([
@@ -221,6 +238,9 @@ class AdminChatController extends Controller
             'receiver_id' => $userId,
             'sender_type' => ChatMessage::SENDER_AGENT,
             'message' => $messageBody,
+            'media_path' => $mediaPath,
+            'media_type' => $mediaType,
+            'media_mime' => $mediaMime,
         ]);
 
         $message->load('sender');

@@ -21,6 +21,9 @@ class ChatMessage extends Model
         'receiver_id',
         'sender_type',
         'message',
+        'media_path',
+        'media_type',
+        'media_mime',
         'read_at',
     ];
 

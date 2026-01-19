@@ -86,6 +86,9 @@ class PublicPostController extends Controller
             if ($post->image) {
                 $post->image = url('storage/' . $post->image);
             }
+            if ($post->video) {
+                $post->video = url('storage/' . $post->video);
+            }
 
             return $post;
         });
@@ -136,6 +139,9 @@ class PublicPostController extends Controller
 
             if ($post->image) {
                 $post->image = url('storage/' . $post->image);
+            }
+            if ($post->video) {
+                $post->video = url('storage/' . $post->video);
             }
 
             // Safely get likes and comments counts

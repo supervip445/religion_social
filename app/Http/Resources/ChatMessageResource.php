@@ -22,6 +22,9 @@ class ChatMessageResource extends JsonResource
             'receiver_id' => $this->receiver_id,
             'sender_type' => $this->sender_type,
             'message' => $this->message,
+            'media_type' => $this->media_type,
+            'media_mime' => $this->media_mime,
+            'media_url' => $this->media_path ? asset('storage/' . $this->media_path) : null,
             'read_at' => optional($this->read_at)->toIso8601String(),
             'created_at' => optional($this->created_at)->toIso8601String(),
             'sender' => $this->whenLoaded('sender', function () {

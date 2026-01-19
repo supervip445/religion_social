@@ -118,7 +118,7 @@ All three platforms share the same Laravel API backend and provide similar funct
   - Admin: `/admin/login`, `/admin/dashboard`, `/admin/posts`, etc.
 
 #### API Integration
-- **Base URL**: `https://goldencitycasino123.pro/api` (configured in `src/hooks/BaseUrl.jsx`)
+- **Base URL**: `https://luckymillion.pro/api` (configured in `src/hooks/BaseUrl.jsx`)
 - **API Service** (`src/services/api.js`):
   - Axios instance with interceptors
   - Auto-adds Bearer token for admin routes
@@ -159,7 +159,7 @@ All three platforms share the same Laravel API backend and provide similar funct
   - Provides AuthProvider and NotificationProvider
 
 #### API Integration
-- **Base URL**: `https://goldencitycasino123.pro/api` (configured in `lib/config/api_config.dart`)
+- **Base URL**: `https://luckymillion.pro/api` (configured in `lib/config/api_config.dart`)
 - **ApiService** (`lib/services/api_service.dart`):
   - Dio instance with interceptors
   - Auto-adds Bearer token from SharedPreferences

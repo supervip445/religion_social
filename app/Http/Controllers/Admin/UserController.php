@@ -73,20 +73,16 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'name' => 'required|string|max:255',
+            'name' => 'nullable|string|max:255',
             'age' => 'nullable|integer|min:1|max:150',
-            'phone' => 'required|string|max:20|unique:users,phone',
-            'email' => 'nullable|email|max:255|unique:users,email',
+            'phone' => 'nullable|string|max:20|unique:users,phone',
             'password' => 'required|string|min:8',
             'status' => 'nullable|integer|in:0,1',
         ]);
 
-        $userName = 'user_' . $validated['phone'];
-        $counter = 1;
-        while (User::where('user_name', $userName)->exists()) {
-            $userName = 'user_' . $validated['phone'] . '_' . $counter;
-            $counter++;
-        }
+        do {
+            $userName = 'P' . str_pad((string) random_int(0, 9999999), 7, '0', STR_PAD_LEFT);
+        } while (User::where('user_name', $userName)->exists());
 
         $user = User::create([
             'name' => $validated['name'],

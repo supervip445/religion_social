@@ -19,7 +19,7 @@ class MonasteryController extends Controller
 
     public function index()
 {
-    $monasteries = Monastery::orderBy('order')
+    $monasteries = Monastery::orderBy('created_at', 'desc')
         ->paginate(10);
 
     return response()->json([

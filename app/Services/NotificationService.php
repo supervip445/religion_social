@@ -299,7 +299,7 @@ class NotificationService
     {
         return $this->sendNotification(
             'biography',
-            'အတ္ထုပ္ပတ္တိ အသစ်',
+            'ပရိုးမိုးရှင်း အသစ်',
             $biography->name,
             '/biographies/' . $biography->id,
             ['biography_id' => $biography->id]

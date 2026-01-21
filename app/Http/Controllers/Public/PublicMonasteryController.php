@@ -23,8 +23,8 @@ class PublicMonasteryController extends Controller
 
         return response()->json([
             'data' => [
-                'title' => 'ပါရာယန ဓမ္မစင်တာကျောင်းတိုက်',
-                'subtitle' => 'စီစစ်ပြီး ကျောင်းစာရင်း ၂-၈-၂၀၂၅',
+                'title' => 'Tri Chat',
+                'subtitle' => 'Top Sellers',
                 'monasteries' => $monasteries,
                 'buildings' => $buildings,
             ]

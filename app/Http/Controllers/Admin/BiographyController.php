@@ -102,7 +102,7 @@ class BiographyController extends Controller
         }
 
         return response()->json([
-            'message' => 'Biography created successfully',
+            'message' => 'Promotions created successfully',
             'data' => $biography,
         ], 201);
     }

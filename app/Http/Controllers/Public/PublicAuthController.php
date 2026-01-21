@@ -77,17 +77,17 @@ class PublicAuthController extends Controller
     public function login(Request $request)
     {
         $request->validate([
-            'phone' => 'required|string',
+            'user_name' => 'required|string',
             'password' => 'required|string',
         ]);
 
-        $user = User::where('phone', $request->phone)
+        $user = User::where('user_name', $request->user_name)
             ->where('type', UserType::User->value)
             ->first();
 
         if (!$user || !Hash::check($request->password, $user->password)) {
             throw ValidationException::withMessages([
-                'phone' => ['The provided credentials are incorrect.'],
+                'user_name' => ['The provided credentials are incorrect.'],
             ]);
         }
 

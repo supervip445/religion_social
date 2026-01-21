@@ -13,20 +13,38 @@ class PublicMonasteryController extends Controller
      */
     public function index()
     {
-        $monasteries = Monastery::where('type', 'monastery')
+        $monasteries = Monastery::where('type', 'topsellers')
             ->orderBy('order')
-            ->get();
+            ->paginate(10, ['id', 'name', 'type']);
 
-        $buildings = Monastery::where('type', 'building')
+        $buildings = Monastery::where('type', 'player')
             ->orderBy('order')
-            ->get();
+            ->paginate(10, ['id', 'name', 'type']);
 
         return response()->json([
             'data' => [
                 'title' => 'Tri Chat',
                 'subtitle' => 'Top Sellers',
-                'monasteries' => $monasteries,
-                'buildings' => $buildings,
+                'monasteries' => [
+                    'data' => $monasteries->items(),
+                    'pagination' => [
+                        'current_page' => $monasteries->currentPage(),
+                        'per_page' => $monasteries->perPage(),
+                        'total' => $monasteries->total(),
+                        'last_page' => $monasteries->lastPage(),
+                        'has_more_pages' => $monasteries->hasMorePages(),
+                    ],
+                ],
+                'buildings' => [
+                    'data' => $buildings->items(),
+                    'pagination' => [
+                        'current_page' => $buildings->currentPage(),
+                        'per_page' => $buildings->perPage(),
+                        'total' => $buildings->total(),
+                        'last_page' => $buildings->lastPage(),
+                        'has_more_pages' => $buildings->hasMorePages(),
+                    ],
+                ],
             ]
         ]);
     }

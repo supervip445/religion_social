@@ -15,11 +15,11 @@ class PublicMonasteryController extends Controller
     {
         $monasteries = Monastery::where('type', 'topsellers')
             ->orderBy('order')
-            ->paginate(10, ['id', 'name', 'type']);
+            ->paginate(10, ['id', 'name', 'type'], 'topsellers_page');
 
         $buildings = Monastery::where('type', 'player')
             ->orderBy('order')
-            ->paginate(10, ['id', 'name', 'type']);
+            ->paginate(10, ['id', 'name', 'type'], 'players_page');
 
         return response()->json([
             'data' => [

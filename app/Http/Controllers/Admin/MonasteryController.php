@@ -43,13 +43,13 @@ class MonasteryController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'type' => 'required|in:monastery,building',
+            'type' => 'required|in:player,topsellers',
         ]);
 
         $monastery = Monastery::create($validated);
 
         return response()->json([
-            'message' => 'Monastery created successfully',
+            'message' => 'TopSeller created successfully',
             'data' => $monastery,
         ], 201);
     }

@@ -44,20 +44,7 @@ class MonasteryController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'type' => 'required|in:monastery,building',
-            'monastery_name' => 'nullable|string|max:255',
-            'monks' => 'nullable|integer|min:0',
-            'novices' => 'nullable|integer|min:0',
-            'order' => 'nullable|integer',
         ]);
-
-        // Calculate total
-        $validated['total'] = $validated['monks'] + $validated['novices'];
-
-        // Set default order if not provided
-        if (!isset($validated['order'])) {
-            $maxOrder = Monastery::max('order') ?? 0;
-            $validated['order'] = $maxOrder + 1;
-        }
 
         $monastery = Monastery::create($validated);
 

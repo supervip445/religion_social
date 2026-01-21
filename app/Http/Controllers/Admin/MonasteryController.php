@@ -45,8 +45,8 @@ class MonasteryController extends Controller
             'name' => 'required|string|max:255',
             'type' => 'required|in:monastery,building',
             'monastery_name' => 'nullable|string|max:255',
-            'monks' => 'required|integer|min:0',
-            'novices' => 'required|integer|min:0',
+            'monks' => 'nullable|integer|min:0',
+            'novices' => 'nullable|integer|min:0',
             'order' => 'nullable|integer',
         ]);
 

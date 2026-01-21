@@ -20,7 +20,10 @@ psql -d ponewine_db
 php -r "file_put_contents('/var/www/html/parayana_dhamma_center/storage/logs/laravel.log', '');" 
 composer require elephantio/elephant.io
 
-pm2 start server.js --name noti
+pm2 start server.js --name chatnoti
 pm2 save
 pm2 startup systemd
 pm2 save
+
+
+pm2 stop noti

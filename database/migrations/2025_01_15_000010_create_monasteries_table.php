@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('monasteries', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->enum('type', ['monastery', 'building'])->default('monastery');
+            $table->enum('type', ['player', 'topsellers'])->default('topsellers');
             $table->string('monastery_name')->nullable(); // For buildings, link to parent monastery
             $table->integer('monks')->default(0);
             $table->integer('novices')->default(0);

@@ -1,5 +1,8 @@
 flutter pub run flutter_launcher_icons
 
+flutter pub run flutter_native_splash:create
+
+
 flutter build apk --release 2>&1 | Select-String -Pattern "namespace|Namespace|BUILD|FAILURE" -Context 1,1
 
 DB_CONNECTION=pgsql

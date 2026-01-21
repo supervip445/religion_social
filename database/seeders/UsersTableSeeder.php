@@ -41,7 +41,7 @@ class UsersTableSeeder extends Seeder
             'name' => $name,
             'user_name' => $user_name,
             'phone' => $phone,
-            'password' => Hash::make('dhammacenter'),
+            'password' => Hash::make('trichat'),
             'status' => 1,
             'is_changed_password' => 1,
             'type' => $type->value,

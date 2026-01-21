@@ -18,22 +18,22 @@ class MonasteryController extends Controller
     // }
 
     public function index()
-{
-    $monasteries = Monastery::orderBy('created_at', 'desc')
-        ->paginate(10);
+    {
+        $monasteries = Monastery::orderBy('created_at', 'desc')
+            ->paginate(10);
 
-    return response()->json([
-        'success' => true,
-        'data' => $monasteries->items(),
-        'pagination' => [
-            'current_page' => $monasteries->currentPage(),
-            'per_page' => $monasteries->perPage(),
-            'total' => $monasteries->total(),
-            'last_page' => $monasteries->lastPage(),
-            'has_more_pages' => $monasteries->hasMorePages(),
-        ],
-    ]);
-}
+        return response()->json([
+            'success' => true,
+            'data' => $monasteries->items(),
+            'pagination' => [
+                'current_page' => $monasteries->currentPage(),
+                'per_page' => $monasteries->perPage(),
+                'total' => $monasteries->total(),
+                'last_page' => $monasteries->lastPage(),
+                'has_more_pages' => $monasteries->hasMorePages(),
+            ],
+        ]);
+    }
 
 
     /**

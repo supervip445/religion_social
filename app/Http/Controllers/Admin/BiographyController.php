@@ -31,31 +31,31 @@ class BiographyController extends Controller
     // }
 
     public function index()
-{
-    $biographies = Biography::withCount('views')
-        ->latest()
-        ->paginate(10);
+    {
+        $biographies = Biography::withCount('views')
+            ->latest()
+            ->paginate(10);
 
-    // Transform collection without breaking pagination
-    $biographies->getCollection()->transform(function ($biography) {
-        if ($biography->image) {
-            $biography->image = asset('storage/' . $biography->image);
-        }
-        return $biography;
-    });
+        // Transform collection without breaking pagination
+        $biographies->getCollection()->transform(function ($biography) {
+            if ($biography->image) {
+                $biography->image = asset('storage/' . $biography->image);
+            }
+            return $biography;
+        });
 
-    return response()->json([
-        'success' => true,
-        'data' => $biographies->items(),
-        'pagination' => [
-            'current_page' => $biographies->currentPage(),
-            'per_page' => $biographies->perPage(),
-            'total' => $biographies->total(),
-            'last_page' => $biographies->lastPage(),
-            'has_more_pages' => $biographies->hasMorePages(),
-        ]
-    ]);
-}
+        return response()->json([
+            'success' => true,
+            'data' => $biographies->items(),
+            'pagination' => [
+                'current_page' => $biographies->currentPage(),
+                'per_page' => $biographies->perPage(),
+                'total' => $biographies->total(),
+                'last_page' => $biographies->lastPage(),
+                'has_more_pages' => $biographies->hasMorePages(),
+            ]
+        ]);
+    }
 
 
     /**
